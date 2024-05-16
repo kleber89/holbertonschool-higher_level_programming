@@ -2,4 +2,4 @@
 
 number = 3.14159
 
-print(f"Flotante: {number:.2f}\n")
+print(f"Float: {number:.2f}\n")
