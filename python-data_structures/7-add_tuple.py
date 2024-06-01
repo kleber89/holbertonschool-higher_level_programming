@@ -8,7 +8,6 @@ def add_tuple(tuple_a=(), tuple_b=()):
             tuple_a = (0, 0)
     else:
         tuple_a = tuple_a[:2]
-    # la tupla b también debe contar minimo con 2 elementos    
     if len(tuple_b) < 2:
         if len(tuple_b) == 1:
             tuple_b = (tuple_b[0], 0)
