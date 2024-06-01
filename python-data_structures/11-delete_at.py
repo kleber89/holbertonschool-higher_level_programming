@@ -6,4 +6,4 @@ def delete_at(my_list=[], idx=0):
     # Eliminar el elemento en el índice especificado
     del my_list[idx]
 
-    return new_list
+    return my_list
