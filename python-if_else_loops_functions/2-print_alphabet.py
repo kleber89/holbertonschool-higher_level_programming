@@ -4,5 +4,3 @@
 for i in range(97, 123):
     # Print each character without newline using string formatting
     print(chr(i), end='')
-
-# abcdefghijklmnopqrstuvwxyz
