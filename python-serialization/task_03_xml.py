@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 import xml.etree.ElementTree as ET
 
+
 def serialize_to_xml(dictionary, filename):
-    
+
     # Create the root element
     root = ET.Element("data")
 
@@ -21,14 +22,15 @@ def serialize_to_xml(dictionary, filename):
     # Create the XML tree and write it to the file
     tree = ET.ElementTree(root)
     try:
-        tree.write(filename, encoding='utf-8', xml_declaration=True)
+        tree.write(filename, encoding="utf-8", xml_declaration=True)
         return True
     except Exception as e:
         print(f"An error occurred while writing XML: {e}")
         return False
 
+
 def deserialize_from_xml(filename):
-    
+
     try:
         tree = ET.parse(filename)
         root = tree.getroot()
@@ -44,7 +46,7 @@ def deserialize_from_xml(filename):
                 return element.text
 
         data = {root.tag: parse_element(root)}
-        return data['data']
+        return data["data"]
     except FileNotFoundError:
         print(f"File {filename} not found.")
         return None
@@ -52,21 +54,19 @@ def deserialize_from_xml(filename):
         print(f"An error occurred while parsing XML: {e}")
         return None
 
+
 # Example usage
 if __name__ == "__main__":
     # Example dictionary to serialize
     example_dict = {
-        'name': 'Alice',
-        'age': 30,
-        'is_student': False,
-        'address': {
-            'street': '123 Main St',
-            'city': 'Wonderland'
-        }
+        "name": "Alice",
+        "age": 30,
+        "is_student": False,
+        "address": {"street": "123 Main St", "city": "Wonderland"},
     }
 
     # Serialize the dictionary to XML
-    xml_filename = 'data.xml'
+    xml_filename = "data.xml"
     if serialize_to_xml(example_dict, xml_filename):
         print("Serialization successful.")
 
