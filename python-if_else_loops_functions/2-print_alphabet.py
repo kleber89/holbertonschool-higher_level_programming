@@ -2,4 +2,4 @@
 
 # Loop through ASCII values of lowercase alphabet (97 to 122)
 for i in range(97, 123):
-    print(chr(i), end='')
+    print(chr(i), end="")
