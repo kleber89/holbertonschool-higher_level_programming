@@ -1,5 +1,3 @@
-#!bin/bash/
-
-/*write script that creates the databases*/
+-- write script that creates the databases --
 
 CREATE DATABASE hbtn_0c_0;
