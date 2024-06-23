@@ -3,19 +3,20 @@ import sys
 
 
 def main():
-    argv = sys.argv[1:]
-    argc = len(argv)
 
-    if argc == 0:
-        print("Number of argument(s): 0.")
+    argv = sys.argv[1:]
+    num_arguments = len(argv)
+
+    if num_arguments == 0:
+        print("0 arguments.")
+
+    elif num_arguments == 1:
+        print("1 argument:")
     else:
-        print(
-            "Number of argument(s): {} argument{}:".format(
-                argc, "" if argc == 1 else "s"
-            )
-        )
-        for i, arg in enumerate(argv, start=1):
-            print("{}: {}".format(i, arg))
+        print("{} arguments:".format(num_arguments))
+
+    for i, arguments in enumerate(argv, 1):
+        print("{}: {}".format(i, arguments))
 
 
 if __name__ == "__main__":
