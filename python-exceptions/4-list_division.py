@@ -1,48 +1,30 @@
 #!/usr/bin/python3
-def list_division(mi_lista_1, mi_lista_2, longitud_lista):
-    lista_resultado = []
+def list_division(my_list_1, my_list_2, list_length):
+    result_list = []
 
-    try:
-        for i in range(longitud_lista):
-            try:
-                dividendo = mi_lista_1[i]
-                divisor = mi_lista_2[i]
+    for i in range(list_length):
+        try:
 
-                # Comprobamos si el dividendo y el divisor son numéricos
-                if not (isinstance(dividendo, (int, float)) and isinstance(divisor, (int, float))):
-                    raise TypeError("tipo incorrecto")
+            if i >= len(my_list_1) or i >= len(my_list_2):
+                print("out of range")
+                result_list.append(0)
+                continue
 
-                # Comprobamos si el divisor no es cero
-                if divisor == 0:
-                    raise ZeroDivisionError("división por 0")
+            element_1 = my_list_1[i]
+            element_2 = my_list_2[i]
 
-                # Realizamos la división
-                lista_resultado.append(dividendo / divisor)
+            result = element_1 / element_2
 
-            except IndexError:
-                # Manejamos el error de índice fuera de rango
-                print("fuera de rango")
-                lista_resultado.append(0)
-            except TypeError as e:
-                # Manejamos el error de tipo incorrecto
-                print(e)
-                lista_resultado.append(0)
-            except ZeroDivisionError as e:
-                # Manejamos el error de división por cero
-                print(e)
-                lista_resultado.append(0)
+        except TypeError:
+            print("wrong type")
+            result = 0
+        except ZeroDivisionError:
+            print("division by 0")
+            result = 0
+        except IndexError:
+            print("out of range")
+            result = 0
+        finally:
+            result_list.append(result)
 
-    finally:
-        # Aseguramos que la lista de resultado tenga la longitud deseada
-        while len(lista_resultado) < longitud_lista:
-            lista_resultado.append(0)
-
-    return lista_resultado
-
-# Ejemplo de uso:
-mi_lista_1 = [10, 20, 30]
-mi_lista_2 = [5, 0, 2, 4]
-longitud_lista = 5
-
-resultado = list_division(mi_lista_1, mi_lista_2, longitud_lista)
-print(resultado)
+    return result_list
