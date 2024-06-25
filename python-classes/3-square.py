@@ -1,12 +1,22 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+"""Empty class Square that defines a square."""
+
+
 class Square:
+    """Empty class Square that defines a square."""
+
     def __init__(self, size=0):
-        if not isinstance(size, int):
+        """Initializes the data."""
+        self.__size = size
+
+        if not type(self.__size) is int:
+            """Raise an error if size is not an integer."""
             raise TypeError("size must be an integer")
-        elif size < 0:
+
+        if self.__size < 0:
+            """Raise an error if size is less than 0."""
             raise ValueError("size must be >= 0")
-        else:
-            self.__size = size
 
     def area(self):
-        return self.__size ** 2
+        """Return the area of the square."""
+        return self.__size * self.__size
