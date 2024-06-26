@@ -1,4 +1,12 @@
 #!/usr/bin/python3
 class Rectangle:
-    def __init__(self):
-        pass
+    """
+    This class defines a rectangle.
+
+    Attributes:
+        (None yet)
+
+    Methods:
+        (None yet)
+    """
+    pass
