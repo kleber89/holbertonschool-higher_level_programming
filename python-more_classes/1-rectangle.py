@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+"""
+Defines an empty Rectangle class.
+
+"""
+
+
 class Rectangle:
     """
     This class defines a rectangle by its width and height.
