@@ -6,17 +6,11 @@ function determines whether an object was inherited or not
 
 def inherits_from(obj, a_class):
     """
-    Checks if the object is an instance of
-    a class that inherited (directly or indirectly)
-    from the specified class.
-
-    Args:
-        obj (object): The object to check.
-        a_class (type): The class type to compare against.
-
-    Returns:
-        bool: True if obj is an instance
-        of a class that inherits from a_class,
-              otherwise False.
+    The function returns True if the object is an instance of a class that
+    inherited (directly or indirectly) from the
+    specified class; otherwise False.
     """
-    return issubclass(type(obj), a_class) and type(obj) != a_class
+    if issubclass(type(obj), a_class) and type(obj) is not a_class:
+        return True
+    else:
+        return False
