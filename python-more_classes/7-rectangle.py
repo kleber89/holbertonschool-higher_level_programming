@@ -7,7 +7,8 @@ Defines an empty Rectangle class.
 
 class Rectangle:
     """
-    This class defines a rectangle by its width and height and keeps track of the number of instances.
+    This class defines a rectangle by its
+    width and height and keeps track of the number of instances.
     It also allows customization of the symbol used for string representation.
 
     Attributes:
@@ -76,7 +77,6 @@ class Rectangle:
     def height(self, value):
         """
         Setter method for setting the height of the rectangle.
-
         Args:
             value (int): Height value to set.
 
@@ -104,7 +104,8 @@ class Rectangle:
         Calculates and returns the perimeter of the rectangle.
 
         Returns:
-            int: Perimeter of the rectangle. If width or height is 0, returns 0.
+            int: Perimeter of the rectangle.
+            If width or height is 0, returns 0.
         """
         if self.__width == 0 or self.__height == 0:
             return 0
@@ -112,7 +113,8 @@ class Rectangle:
 
     def __str__(self):
         """
-        Returns a string representation of the rectangle with the character stored in print_symbol.
+        Returns a string representation of the rectangle
+        with the character stored in print_symbol.
 
         Returns:
             str: String representation of the rectangle.
@@ -126,7 +128,8 @@ class Rectangle:
 
     def __repr__(self):
         """
-        Returns a string representation of the rectangle to be able to recreate a new instance by using eval().
+        Returns a string representation of the rectangle to
+        be able to recreate a new instance by using eval().
 
         Returns:
             str: String representation of the rectangle.
