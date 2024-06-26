@@ -14,10 +14,9 @@ class BaseGeometry:
         Method to calculate the area.
 
         Raises:
-            Exception: Always raises an exception
-            with the message 'area() is not implemented'.
+            NotImplementedError: Always raises an exception with the message 'area() is not implemented'.
         """
-        raise Exception("area() is not implemented")
+        raise NotImplementedError("area() is not implemented")
 
     def integer_validator(self, name, value):
         """
@@ -55,7 +54,60 @@ class Rectangle(BaseGeometry):
             ValueError: If width or height are less than or equal to 0.
         """
         super().__init__()  # Initialize base class (BaseGeometry)
-        self.__width = width
-        self.__height = height
-        self.integer_validator("width", self.__width)
-        self.integer_validator("height", self.__height)
+        self.__width = 0  # Initialize width attribute
+        self.__height = 0  # Initialize height attribute
+        self.width = width  # Set width using property setter
+        self.height = height  # Set height using property setter
+
+    @property
+    def width(self):
+        """
+        Getter for width attribute.
+        """
+        return self.__width
+
+    @width.setter
+    def width(self, value):
+        """
+        Setter for width attribute.
+
+        Args:
+            value (int): Value to set as width.
+
+        Raises:
+            TypeError: If value is not an integer.
+            ValueError: If value is less than or equal to 0.
+        """
+        self.integer_validator("width", value)
+        self.__width = value
+
+    @property
+    def height(self):
+        """
+        Getter for height attribute.
+        """
+        return self.__height
+
+    @height.setter
+    def height(self, value):
+        """
+        Setter for height attribute.
+
+        Args:
+            value (int): Value to set as height.
+
+        Raises:
+            TypeError: If value is not an integer.
+            ValueError: If value is less than or equal to 0.
+        """
+        self.integer_validator("height", value)
+        self.__height = value
+
+    def area(self):
+        """
+        Method to calculate the area of the rectangle.
+
+        Returns:
+            int: Area of the rectangle (width * height).
+        """
+        return self.width * self.height
