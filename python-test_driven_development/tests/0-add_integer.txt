@@ -1,0 +1,40 @@
+#!/bin/bash/python3
+Testing add_integer function:
+
+Testing integers:
+1 + 2 = 3
+-1 + -1 = -2
+0 + 0 = 0
+
+Testing integer and default value:
+1 + 98 = 99
+-1 + 98 = 97
+
+Testing floats:
+1.5 + 2.5 = 3
+-1.5 + -1.5 = -2
+
+Testing integer and float:
+1 + 2.5 = 3
+-1 + 2.5 = 1
+1.5 + 2 = 3
+
+Testing float and default value:
+1.5 + 98 = 99
+-1.5 + 98 = 97
+
+Testing invalid types:
+Trying to add string "a" and integer 2:
+TypeError: a must be an integer
+
+Trying to add integer 1 and string "b":
+TypeError: b must be an integer
+
+Trying to add string "a" and string "b":
+TypeError: a must be an integer
+
+Trying to add NoneType None and integer 2:
+TypeError: a must be an integer
+
+Trying to add integer 1 and NoneType None:
+TypeError: b must be an integer
