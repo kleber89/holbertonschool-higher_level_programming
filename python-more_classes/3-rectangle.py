@@ -95,7 +95,7 @@ class Rectangle:
         Calculates and returns the perimeter of the rectangle.
 
         Returns:
-            int: Perimeter of the rectangle. If width or height is 0, returns 0.
+            int: Perimeter of the rectangle.
         """
         if self.__width == 0 or self.__height == 0:
             return 0
@@ -103,7 +103,7 @@ class Rectangle:
 
     def __str__(self):
         """
-        Returns a string representation of the rectangle with the character '#'.
+        Returns a string representation of the rectangle
 
         Returns:
             str: String representation of the rectangle.
