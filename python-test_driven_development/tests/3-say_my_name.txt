@@ -1,0 +1,32 @@
+#!/bin/bash/python3
+iTesting say_my_name function:
+
+Testing valid cases:
+Calling with first name only:
+Input: John
+Expected Output: My name is John 
+
+Calling with both first name and last name:
+Input: Jane Doe
+Expected Output: My name is Jane Doe
+
+Testing errors:
+Passing non-string first name:
+Input: 123
+Expected Error:
+TypeError: first_name must be a string
+
+Passing non-string last name:
+Input: John, 456
+Expected Error:
+TypeError: last_name must be a string
+
+Passing None as first name:
+Input: None
+Expected Error:
+TypeError: first_name must be a string
+
+Passing None as last name:
+Input: John, None
+Expected Error:
+TypeError: last_name must be a string
