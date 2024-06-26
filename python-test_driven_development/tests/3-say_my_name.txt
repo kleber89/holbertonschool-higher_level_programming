@@ -1,32 +1,19 @@
-#!/bin/bash/python3
-iTesting say_my_name function:
-
-Testing valid cases:
-Calling with first name only:
-Input: John
-Expected Output: My name is John 
-
-Calling with both first name and last name:
-Input: Jane Doe
-Expected Output: My name is Jane Doe
-
-Testing errors:
-Passing non-string first name:
-Input: 123
-Expected Error:
-TypeError: first_name must be a string
-
-Passing non-string last name:
-Input: John, 456
-Expected Error:
+i>>> say_my_name = __import__('3-say_my_name').say_my_name
+>>> say_my_name("pedro", "rodriguez")
+My name is pedro rodriguez
+>>> say_my_name("pedro", 1)
+Traceback (most recent call last):
+    ...
 TypeError: last_name must be a string
-
-Passing None as first name:
-Input: None
-Expected Error:
+>>> say_my_name(1, "rodriguez")
+Traceback (most recent call last):
+    ...
 TypeError: first_name must be a string
-
-Passing None as last name:
-Input: John, None
-Expected Error:
-TypeError: last_name must be a string
+>>> say_my_name()
+Traceback (most recent call last):
+    ...
+TypeError: say_my_name() missing 1 required positional argument: 'first_name'
+>>> say_my_name("pedro", "paco", "diaz")
+Traceback (most recent call last):
+    ...
+TypeError: say_my_name() takes from 1 to 2 positional arguments but 3 were given

@@ -1,40 +1,22 @@
-#!/bin/bash/python3
-Testing add_integer function:
-
-Testing integers:
-1 + 2 = 3
--1 + -1 = -2
-0 + 0 = 0
-
-Testing integer and default value:
-1 + 98 = 99
--1 + 98 = 97
-
-Testing floats:
-1.5 + 2.5 = 3
--1.5 + -1.5 = -2
-
-Testing integer and float:
-1 + 2.5 = 3
--1 + 2.5 = 1
-1.5 + 2 = 3
-
-Testing float and default value:
-1.5 + 98 = 99
--1.5 + 98 = 97
-
-Testing invalid types:
-Trying to add string "a" and integer 2:
-TypeError: a must be an integer
-
-Trying to add integer 1 and string "b":
+>>> import sys
+>>> add_integer = __import__('0-add_integer').add_integer
+>>> add_integer(1, 2)
+3
+>>> add_integer(1, -2)
+-1
+>>> add_integer(1.4, 2)
+3
+>>> add_integer(1, "2")
+Traceback (most recent call last):
+    ...
 TypeError: b must be an integer
-
-Trying to add string "a" and string "b":
+>>> add_integer(6)
+104
+>>> add_integer(None)
+Traceback (most recent call last):
+    ...
 TypeError: a must be an integer
-
-Trying to add NoneType None and integer 2:
-TypeError: a must be an integer
-
-Trying to add integer 1 and NoneType None:
-TypeError: b must be an integer
+>>> add_integer(1, 1000000000000000000)
+Traceback (most recent call last):
+    ...
+OverflowError: cannot convert float infinity to integer
