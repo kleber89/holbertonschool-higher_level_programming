@@ -1,0 +1,51 @@
+Importing the function from the module:
+    >>> MyList = __import__("1-my_list").MyList
+
+Testing for module docstring:
+    >>> q = __import__("1-my_list").__doc__
+    >>> len(q) > 1
+    True
+
+Testing for class docstring:
+    >>> k = __import__("1-my_list").MyList.__doc__
+    >>> len(k) > 1
+    True
+
+Testing for method docstring:
+	>>> mod = __import__("1-my_list").MyList.print_sorted.__doc__
+	>>> len(mod) > 1
+	True
+
+Testing that MyList inherits from list:
+	>>> issubclass(MyList, list)
+	True
+
+Testing for empty list:
+	>>> p = MyList()
+	>>> p.print_sorted()
+	[]
+
+Testing that appendng works:
+	>>> p.append(1)
+	>>> p.append(2)
+	>>> p.append(3)
+	>>> p.append(4)
+	>>> print(p)
+	[1, 2, 3, 4]
+
+Testing for list already in correct order:
+	>>> p.print_sorted()
+	[1, 2, 3, 4]
+
+Testing for reversed order list:
+	>>> p = MyList()
+	>>> p.append(4)
+	>>> p.append(3)
+	>>> p.append(2)
+	>>> p.append(1)
+	>>> print(p)
+	[4, 3, 2, 1]
+	>>> p.print_sorted()
+	[1, 2, 3, 4]
+	>>> print(p)
+	[4, 3, 2, 1]
