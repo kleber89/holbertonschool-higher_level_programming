@@ -1,0 +1,14 @@
+>>> import sys
+>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+>>> BaseGeometry.integer_validator("name", "John", "hola")
+Traceback (most recent call last):
+    ...
+TypeError: John must be an integer
+>>> BaseGeometry.integer_validator("name", "age", -0)
+Traceback (most recent call last):
+    ...
+ValueError: age must be greater than 0
+>>> BaseGeometry.integer_validator("name", "distance", -4)
+Traceback (most recent call last):
+    ...
+ValueError: distance must be greater than 0
