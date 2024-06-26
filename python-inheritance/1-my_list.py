@@ -5,9 +5,11 @@ way to inherit a list
 
 
 class MyList(list):
+    """
+    class my list
+    """
     def print_sorted(self):
         """
-        Prints the list in ascending order.
+        Prints a sorted version of the list.
         """
-        sorted_list = sorted(self)
-        print(sorted_list)
+        print(sorted(self))
