@@ -1,10 +1,5 @@
 #!/usr/bin/python3
-
 from abc import ABC, abstractmethod
-
-"""
-class of Animal
-"""
 import math
 
 
@@ -36,10 +31,12 @@ class Circle(Shape):
     """
     Circle is a subclass of Shape.
     It implements the area and perimeter methods.
-    The constructor accepts a radius.
+    The constructor accepts a radius and validates it.
     """
 
     def __init__(self, radius):
+        if radius < 0:
+            raise ValueError("Radius cannot be negative")
         self.radius = radius
 
     def area(self):
@@ -63,6 +60,8 @@ class Rectangle(Shape):
     """
 
     def __init__(self, width, height):
+        if width < 0 or height < 0:
+            raise ValueError("Width and height cannot be negative")
         self.width = width
         self.height = height
 
