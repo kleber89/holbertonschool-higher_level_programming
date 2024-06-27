@@ -1,6 +1,19 @@
 #!/usr/bin/python3
-def agregar_texto(nombre_archivo="", texto=""):
-  """Agrega una cadena al final de un archivo de texto UTF-8 y devuelve el número de caracteres añadidos."""
-  with open(nombre_archivo, 'a', encoding='utf-8') as archivo:
-      caracteres_añadidos = archivo.write(texto)
-  return caracteres_añadidos
+"""Append write"""
+
+
+def append_write(filename="", text=""):
+    """
+    Appends a string to the end of a UTF-8 encoded text file and returns the number of characters added.
+
+    Parameters:
+    filename (str): The name of the file to append to (default is an empty string).
+    text (str): The string to append to the file (default is an empty string).
+
+    Returns:
+    int: The number of characters added to the file.
+
+    """
+    with open(filename, "a", encoding="utf-8") as file:
+        file.write(text)
+        return len(text)
