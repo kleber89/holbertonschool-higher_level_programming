@@ -1,6 +1,22 @@
 #!/usr/bin/python3
-def escribir_archivo(nombre_archivo="", texto=""):
-    """Escribe una cadena en un archivo de texto UTF-8 y devuelve el número de caracteres escritos."""
-    with open(nombre_archivo, 'w', encoding='utf-8') as archivo:
-        caracteres_escritos = archivo.write(texto)
-    return caracteres_escritos
+"""Write file"""
+
+
+def write_file(filename="", text=""):
+    """
+    Writes a string to a UTF-8 encoded
+    text file and returns the number of characters written.
+
+    Parameters:
+    filename (str): The name of the file
+    to write to (default is an empty string).
+    text (str): The string to write
+    to the file (default is an empty string).
+
+    Returns:
+    int: The number of characters written to the file.
+
+    """
+    with open(filename, "w", encoding="utf-8") as file:
+        file.write(text)
+        return len(text)
