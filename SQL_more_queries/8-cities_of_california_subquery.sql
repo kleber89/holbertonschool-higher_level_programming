@@ -1,13 +1,7 @@
--- 8. Cities of California
-USE hbtn_0d_usa;
+-- Write a script that lists all the cities of California that can be found in the database hbtn_0d_usa. --
 
-SELECT 
-    ci.id,
-    ci.name
-FROM cities ci
-WHERE ci.state_id = (
-    SELECT st.id
-    FROM states st
-    WHERE st.name = 'California'
-)
-ORDER BY ci.id ASC;
+SELECT id, name FROM cities
+WHERE state_id = (
+      SELECT id FROM states
+      WHERE name = "California")
+ORDER BY id;
