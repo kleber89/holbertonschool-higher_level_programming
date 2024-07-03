@@ -1,0 +1,192 @@
+Basics of HTTP/HTTPS
+
+
+HTTP (HyperText Transfer Protocol) and HTTPS (HyperText Transfer Protocol Secure) are protocols used for transferring data over the web. The key differences between them are:
+
+Security:
+
+- HTTP: Transmits data in plain text, which can be intercepted and read by anyone who gains access to the data transfer.
+- HTTPS: Encrypts data using SSL/TLS (Secure Sockets Layer/Transport Layer Security), ensuring that data sent between the client and server is secure and cannot be easily intercepted or read by unauthorized parties.
+
+
+Port Numbers:
+
+- HTTP: Uses port 80 by default for communication.
+- HTTPS: Uses port 443 by default for secure communication.
+
+
+Certificate:
+
+- HTTP: Does not require a security certificate.
+- HTTPS: Requires a digital certificate issued by a Certificate Authority (CA) to verify the authenticity of the server and establish a secure connection.
+
+
+SEO and Trust:
+
+- HTTP: Websites using HTTP are often flagged as "Not Secure" by modern browsers, potentially deterring users and negatively impacting SEO.
+- HTTPS: Preferred by search engines and users, enhancing SEO rankings and user trust due to the secure connection.
+
+
+HTTPS is HTTP with an added layer of security, making it the preferred choice for any website handling sensitive data or requiring secure communications.
+
+
+
+Structure of an HTTP Request
+
+An HTTP request typically consists of the following components:
+
+1. Request Line:
+
+- Method: The HTTP method (e.g., GET, POST, PUT, DELETE).
+- URL: The resource being requested.
+- HTTP Version: The version of HTTP being used (e.g., HTTP/1.1).
+
+Example:
+
+GET /index.html HTTP/1.1
+
+
+2. Headers:
+
+- Key-value pairs that provide additional information about the request.
+
+Example:
+
+Host: www.example.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+
+
+3. Blank Line:
+
+- A blank line indicating the end of the headers.
+
+
+4. Body (optional):
+
+- Data sent with the request, used primarily with methods like POST and PUT.
+
+Example:
+
+name=JohnDoe&email=johndoe@example.com
+
+
+Structure of an HTTP Response
+An HTTP response typically consists of the following components:
+
+1. Status Line:
+
+- HTTP Version: The version of HTTP being used.
+- Status Code: The status of the response (e.g., 200, 404).
+- Status Message: A brief description of the status code.
+
+Example:
+
+HTTP/1.1 200 OK
+
+2. Headers:
+
+- Key-value pairs that provide additional information about the response.
+
+Example:
+
+
+Content-Type: text/html; charset=UTF-8
+Content-Length: 138
+Connection: keep-alive
+
+3. Blank Line:
+
+- A blank line indicating the end of the headers.
+
+4. Body:
+
+- The content of the response, such as the HTML of a webpage, JSON data, etc.
+
+Example:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Page</title>
+</head>
+<body>
+    <h1>Hello, world!</h1>
+</body>
+</html>
+
+Example HTTP Request and Response
+HTTP Request:
+
+GET /index.html HTTP/1.1
+Host: www.example.com
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+
+HTTP Response:
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Length: 138
+Connection: keep-alive
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example Page</title>
+</head>
+<body>
+    <h1>Hello, world!</h1>
+</body>
+</html>
+
+
+COMMON HTTP METHODS
+
+- GET
+
+Description: Retrieves data from a server at the specified resource.
+Usage Scenario: When a user wants to fetch information from a webpage. For example, when you load a blog post in your browser.
+
+- POST
+
+Description: Sends data to the server to create a new resource.
+Usage Scenario: When a user submits a form to create a new user account on a website.
+
+- PUT
+
+Description: Updates an existing resource or creates a new resource if it does not exist.
+Usage Scenario: When updating user profile information on a social media site.
+
+- DELETE
+
+Description: Removes the specified resource from the server.
+Usage Scenario: When a user deletes a post from their blog.
+
+
+COMMON HTTP STATUS CODES
+
+- 200 OK
+
+Description: The request has succeeded.
+Scenario: When a user successfully loads a webpage or retrieves a resource.
+
+- 201 Created
+
+Description: The request has been fulfilled, resulting in the creation of a new resource.
+Scenario: When a new user account is successfully created after submitting a registration form.
+
+- 400 Bad Request
+
+Description: The server could not understand the request due to invalid syntax.
+Scenario: When a user submits a form with missing required fields, and the server cannot process the request.
+
+- 401 Unauthorized
+
+Description: The client must authenticate itself to get the requested response.
+Scenario: When a user tries to access a protected page without logging in.
+
+- 404 Not Found
+
+Description: The server cannot find the requested resource.
+Scenario: When a user tries to access a non-existent page on a website, such as a broken link.
