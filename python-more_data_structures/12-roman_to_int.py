@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 
 def roman_to_int(roman_str):
+    if roman_str is None or roman_str == "":
+        raise ValueError("Input cannot be None or empty")
+
     roman_to_decimal = {
         'I': 1,
         'V': 5,
@@ -20,7 +23,7 @@ def roman_to_int(roman_str):
         if char in roman_to_decimal:
             decimal_values.append(roman_to_decimal[char])
         else:
-            raise ValueError(f"invalid: {char}")
+            raise ValueError(f"Invalid Roman numeral character: {char}")
 
     total = 0
     for i in range(n - 1):
