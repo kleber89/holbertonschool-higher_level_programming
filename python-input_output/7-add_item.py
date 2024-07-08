@@ -1,30 +1,45 @@
 #!/usr/bin/python3
 """
-the script  adds all arguments to
-a Python list, and then save them to a file
+function that returns the dictionary description with simple data
+structure (list, dictionary, string, integer and boolean)
+for JSON serialization of an object.
 """
+
+import json
 import sys
-save_to_json_file = __import__('5-save_to_json_file').save_to_json_file
-load_from_json_file = __import__('6-load_from_json_file').load_from_json_file
+import os
+
+
+def load_from_json_file(filename):
+    """Reads JSON data from a file and returns the corresponding
+    Python object."""
+    with open(filename, 'r') as file:
+        return json.load(file)
+
+
+def save_to_json_file(data, filename):
+    """Writes a Python object to a file in JSON format."""
+    with open(filename, 'w') as file:
+        json.dump(data, file)
 
 
 def main():
-    """
-    Adds command line arguments to a list, saves it as JSON to add_items.json.
-    """
+    """Main function that loads, updates, and saves a
+    list to a JSON file."""
 
-    arguments = sys.argv[1:]
+    filename = 'add_item.json'
 
-    try:
-        data = load_from_json_file("add_item.json")
-    except FileNotFoundError:
-        data = []
+    # comprobar si existe
+    # si no []
+    if os.path.exists(filename):
+        item = load_from_json_file(filename)
+    else:
+        item = []
 
-    data.extend(arguments)
+    # debemos add lo dado por el usuario
+    item.extend(sys.argv[1:])
 
-    save_to_json_file("add_item.json", data)
-
-    print(f"Saved {len(data)} items to add_item.json")
+    save_to_json_file(item, filename)
 
 
 if __name__ == "__main__":
