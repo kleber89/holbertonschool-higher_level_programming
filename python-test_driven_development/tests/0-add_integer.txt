@@ -1,22 +1,37 @@
->>> import sys
->>> add_integer = __import__('0-add_integer').add_integer
->>> add_integer(1, 2)
-3
->>> add_integer(1, -2)
--1
->>> add_integer(1.4, 2)
-3
->>> add_integer(1, "2")
-Traceback (most recent call last):
-    ...
-TypeError: b must be an integer
->>> add_integer(6)
-104
->>> add_integer(None)
-Traceback (most recent call last):
-    ...
-TypeError: a must be an integer
->>> add_integer(1, 1000000000000000000)
-Traceback (most recent call last):
-    ...
-OverflowError: cannot convert float infinity to integer
+The ``0-add_integer`` module
+======================
+
+Using ``add_integer``
+-------------------
+
+This is an example text file in reStructuredText format.  First import
+``add_integer`` from the ``0-add_integer`` module:
+
+    >>> add_integer = __import__('0-add_integer').add_integer
+
+    >>> print(add_integer(1, 2))
+    3
+
+    >>> print(add_integer(100, -2))
+    98
+
+    >>> print(add_integer(2))
+    100
+
+    >>> print(add_integer(100.3, -2))
+    98
+
+    >>> print(add_integer(4, "School"))
+    Traceback (most recent call last):
+        ...
+    TypeError: b must be an integer
+
+    >>> print(add_integer(None))
+    Traceback (most recent call last):
+        ...
+    TypeError: a must be an integer
+
+    >>> print(add_integer(100.3, 2.7976931348623157e+308))
+    Traceback (most recent call last):
+        ...
+    OverflowError: cannot convert float infinity to integer
