@@ -1,42 +1,33 @@
-import sys
 import MySQLdb
+import sys
 
-def main(username, password, database):
-    # Connect to MySQL server
-    try:
-        db = MySQLdb.connect(host='localhost', port=3306, user=username, passwd=password, db=database)
-        cursor = db.cursor()
 
-        # Execute query
-        query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
-        cursor.execute(query)
+def get_states_by_name_pattern(username, password, database):
+    """
+    This function retrieves all states with a name starting with 'N' from a MySQL database.
 
-        # Fetch all rows
-        results = cursor.fetchall()
+    Args:
+        username: Username to connect to the MySQL database.
+        password: Password to connect to the MySQL database.
+        database: Database name to query.
+    """
 
-        # Display results
-        for row in results:
-            print(row)
+    db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3],
+    )
 
-        # Since this is a read-only query (SELECT), no commit is necessary.
-        # But if you were making changes (INSERT, UPDATE, DELETE), you would commit them like this:
-        # db.commit()
+    cur = db.cursor()
 
-        # Close cursor and connection
-        cursor.close()
-        db.close()
+    query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY states.id ASC"
 
-    except MySQLdb.Error as e:
-        print("Error connecting to MySQL:", e)
-        sys.exit(1)
+    cur.execute(query)
 
-if __name__ == "__main__":
-    if len(sys.argv) != 4:
-        print("Usage: python script.py <username> <password> <database>")
-        sys.exit(1)
-    
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-    
-    main(username, password, database)
+    for row in cur.fetchall():
+        print(row)
+
+    cur.close()
+    db.close()
