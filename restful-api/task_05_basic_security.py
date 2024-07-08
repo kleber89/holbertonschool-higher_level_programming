@@ -1,111 +1,102 @@
-import requests
-import json
-from test_runner import test_functions
+from flask import Flask, jsonify, request
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import (
+    JWTManager,
+    create_access_token,
+    jwt_required,
+    get_jwt_identity,
+)
+from flask_jwt_extended.exceptions import NoAuthorizationError, InvalidHeaderError
 
-BASE_URL = "http://localhost:5000"
+app = Flask(__name__)
+app.config["SECRET_KEY"] = "your_secret_key"
+app.config["JWT_SECRET_KEY"] = "your_jwt_secret_key"
 
+auth = HTTPBasicAuth()
+jwt = JWTManager(app)
 
-def test_basic_auth_no_credentials():
-    """Test that the endpoint returns 401 when no credentials are provided."""
-    response = requests.get(f"{BASE_URL}/basic-protected")
-    assert response.status_code == 401
-
-
-def test_basic_auth_valid_credentials():
-    """Test that the endpoint returns 200 when valid credentials are provided."""
-    response = requests.get(f"{BASE_URL}/basic-protected", auth=("user1", "password"))
-    assert response.status_code == 200
-    assert response.text == "Basic Auth: Access Granted"
-
-
-def test_basic_auth_invalid_credentials():
-    """Test that the endpoint returns 401 when invalid credentials are provided."""
-    response = requests.get(
-        f"{BASE_URL}/basic-protected", auth=("user1", "wrongpassword")
-    )
-    assert response.status_code == 401
-
-
-def test_jwt_login_valid_credentials():
-    """Test that the login endpoint returns a valid JWT token when valid credentials are provided."""
-    login_data = {"username": "user1", "password": "password"}
-    response = requests.post(f"{BASE_URL}/login", json=login_data)
-    assert response.status_code == 200
-    assert "access_token" in response.json()
+users = {
+    "user1": {
+        "username": "user1",
+        "password": generate_password_hash("password"),
+        "role": "user",
+    },
+    "admin1": {
+        "username": "admin1",
+        "password": generate_password_hash("password"),
+        "role": "admin",
+    },
+}
 
 
-def test_jwt_login_invalid_credentials():
-    """Test that the login endpoint returns 401 when invalid credentials are provided."""
-    login_data = {"username": "user1", "password": "wrongpassword"}
-    response = requests.post(f"{BASE_URL}/login", json=login_data)
-    assert response.status_code == 401
+@auth.verify_password
+def verify_password(username, password):
+    user = users.get(username)
+    if user and check_password_hash(user["password"], password):
+        return user
 
 
-def test_jwt_protected_no_token():
-    """Test that the jwt-protected endpoint returns 401 when no token is provided."""
-    response = requests.get(f"{BASE_URL}/jwt-protected")
-    assert response.status_code == 401
+@app.route("/basic-protected")
+@auth.login_required
+def basic_protected():
+    return "Basic Auth: Access Granted"
 
 
-def test_jwt_protected_valid_token():
-    """Test that the jwt-protected endpoint returns 200 when a valid token is provided."""
-    login_data = {"username": "user1", "password": "password"}
-    response = requests.post(f"{BASE_URL}/login", json=login_data)
-    token = response.json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
-    response = requests.get(f"{BASE_URL}/jwt-protected", headers=headers)
-    assert response.status_code == 200
-    assert response.text == "JWT Auth: Access Granted"
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.get_json()
+    username = data.get("username")
+    password = data.get("password")
+    user = users.get(username)
+    if user and check_password_hash(user["password"], password):
+        access_token = create_access_token(
+            identity={"username": username, "role": user["role"]}
+        )
+        return jsonify(access_token=access_token)
+    return jsonify({"error": "Invalid credentials"}), 401
 
 
-def test_jwt_protected_invalid_token():
-    """Test that the jwt-protected endpoint returns 401 when an invalid token is provided."""
-    headers = {"Authorization": "Bearer invalidtoken"}
-    response = requests.get(f"{BASE_URL}/jwt-protected", headers=headers)
-    assert response.status_code == 401
+@app.route("/jwt-protected")
+@jwt_required()
+def jwt_protected():
+    return "JWT Auth: Access Granted"
 
 
-def test_admin_only_no_token():
-    """Test that the admin-only endpoint returns 401 when no token is provided."""
-    response = requests.get(f"{BASE_URL}/admin-only")
-    assert response.status_code == 401
+@app.route("/admin-only")
+@jwt_required()
+def admin_only():
+    current_user = get_jwt_identity()
+    if current_user["role"] != "admin":
+        return jsonify({"error": "Admin access required"}), 403
+    return "Admin Access: Granted"
 
 
-def test_admin_only_user_token():
-    """Test that the admin-only endpoint returns 403 when a user token is provided."""
-    login_data = {"username": "user1", "password": "password"}
-    response = requests.post(f"{BASE_URL}/login", json=login_data)
-    token = response.json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
-    response = requests.get(f"{BASE_URL}/admin-only", headers=headers)
-    assert response.status_code == 403
-    assert response.json() == {"error": "Admin access required"}
+# Custom error handlers for JWT errors
+@jwt.unauthorized_loader
+def handle_unauthorized_error(err):
+    return jsonify({"error": "Missing or invalid token"}), 401
 
 
-def test_admin_only_admin_token():
-    """Test that the admin-only endpoint returns 200 when an admin token is provided."""
-    login_data = {"username": "admin1", "password": "password"}
-    response = requests.post(f"{BASE_URL}/login", json=login_data)
-    token = response.json()["access_token"]
-    headers = {"Authorization": f"Bearer {token}"}
-    response = requests.get(f"{BASE_URL}/admin-only", headers=headers)
-    assert response.status_code == 200
-    assert response.text == "Admin Access: Granted"
+@jwt.invalid_token_loader
+def handle_invalid_token_error(err):
+    return jsonify({"error": "Invalid token"}), 401
+
+
+@jwt.expired_token_loader
+def handle_expired_token_error(err):
+    return jsonify({"error": "Token has expired"}), 401
+
+
+@jwt.revoked_token_loader
+def handle_revoked_token_error(err):
+    return jsonify({"error": "Token has been revoked"}), 401
+
+
+@jwt.needs_fresh_token_loader
+def handle_needs_fresh_token_error(err):
+    return jsonify({"error": "Fresh token required"}), 401
 
 
 if __name__ == "__main__":
-    test_functions(
-        [
-            test_basic_auth_no_credentials,
-            test_basic_auth_valid_credentials,
-            test_basic_auth_invalid_credentials,
-            test_jwt_login_valid_credentials,
-            test_jwt_login_invalid_credentials,
-            test_jwt_protected_no_token,
-            test_jwt_protected_valid_token,
-            test_jwt_protected_invalid_token,
-            test_admin_only_no_token,
-            test_admin_only_user_token,
-            test_admin_only_admin_token,
-        ]
-    )
+    app.run()
