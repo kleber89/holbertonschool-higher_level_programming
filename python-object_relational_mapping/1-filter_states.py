@@ -1,13 +1,10 @@
 import sys
 import MySQLdb
 
-
 def main(username, password, database):
     # Connect to MySQL server
     try:
-        db = MySQLdb.connect(
-            host="localhost", port=3306, user=username, passwd=password, db=database
-        )
+        db = MySQLdb.connect(host='localhost', port=3306, user=username, passwd=password, db=database)
         cursor = db.cursor()
 
         # Execute query
@@ -21,8 +18,9 @@ def main(username, password, database):
         for row in results:
             print(row)
 
-        # Commit the transaction
-        db.commit()
+        # Since this is a read-only query (SELECT), no commit is necessary.
+        # But if you were making changes (INSERT, UPDATE, DELETE), you would commit them like this:
+        # db.commit()
 
         # Close cursor and connection
         cursor.close()
@@ -32,14 +30,13 @@ def main(username, password, database):
         print("Error connecting to MySQL:", e)
         sys.exit(1)
 
-
 if __name__ == "__main__":
     if len(sys.argv) != 4:
         print("Usage: python script.py <username> <password> <database>")
         sys.exit(1)
-
+    
     username = sys.argv[1]
     password = sys.argv[2]
     database = sys.argv[3]
-
+    
     main(username, password, database)
