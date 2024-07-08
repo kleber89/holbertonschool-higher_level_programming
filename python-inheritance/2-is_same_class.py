@@ -1,14 +1,9 @@
 #!/usr/bin/python3
 """
-returns True if the object is exactly an instance of the specified class ; otherwise False
+This module contains the function is_same_class.
 """
 
 
 def is_same_class(obj, a_class):
-    """
-    if the object is an instance of the class returns true otherwise false
-    """
-    if type(obj) is a_class:
-        return True
-    else:
-        return False
+    """Return true if obj is the exact class a_class, otherwise false."""
+    return type(obj) is a_class
