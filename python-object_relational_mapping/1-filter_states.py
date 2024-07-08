@@ -2,32 +2,41 @@ import MySQLdb
 import sys
 
 
-def get_states_by_name_pattern(username, password, database):
-    """
-    This function retrieves all states with a name starting with 'N' from a MySQL database.
+def list_states_with_N(username, password, database):
+    try:
+        # Conectarse a la base de datos
+        db = MySQLdb.connect(
+            host="localhost",
+            port=3306,
+            user=sys.argv[1],
+            passwd=sys.argv[2],
+            db=sys.argv[3],
+        )
+        cursor = db.cursor()
 
-    Args:
-        username: Username to connect to the MySQL database.
-        password: Password to connect to the MySQL database.
-        database: Database name to query.
-    """
+        # Consulta para obtener los estados que comienzan con 'N'
+        query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY id ASC"
+        cursor.execute(query)
 
-    db = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=sys.argv[1],
-        passwd=sys.argv[2],
-        db=sys.argv[3],
-    )
+        # Obtener los resultados
+        results = cursor.fetchall()
 
-    cur = db.cursor()
+        # Mostrar los resultados
+        for row in results:
+            print(row)
 
-    query = "SELECT * FROM states WHERE name LIKE 'N%' ORDER BY states.id ASC"
+        # Cerrar la conexión
+        db.close()
 
-    cur.execute(query)
+    except MySQLdb.Error as e:
+        print(f"Error: {e}")
+        sys.exit(1)
 
-    for row in cur.fetchall():
-        print(row)
 
-    cur.close()
-    db.close()
+if __name__ == "__main__":
+    if len(sys.argv) != 4:
+        print("Usage: python script.py <username> <password> <database>")
+        sys.exit(1)
+
+    username, password, database = sys.argv[1], sys.argv[2], sys.argv[3]
+    list_states_with_N(username, password, database)
