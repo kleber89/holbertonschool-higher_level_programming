@@ -2,7 +2,7 @@
 
 def roman_to_int(roman_str):
     if roman_str is None or roman_str == "" or not isinstance(roman_str, str):
-        raise ValueError("Input cannot be None or empty")
+        return 0
 
     roman_to_decimal = {
         'I': 1,
