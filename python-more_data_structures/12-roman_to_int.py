@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 def roman_to_int(roman_str):
-    if roman_str is None or roman_str == "":
+    if roman_str is None or roman_str == "" or not isinstance(roman_str, str):
         raise ValueError("Input cannot be None or empty")
 
     roman_to_decimal = {
