@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+##!/usr/bin/python3
 """
 Adds two integers (or one and a default of 98).
 Raises TypeError for non-numeric input.
