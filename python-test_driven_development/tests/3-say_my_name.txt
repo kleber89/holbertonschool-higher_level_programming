@@ -1,19 +1,32 @@
-i>>> say_my_name = __import__('3-say_my_name').say_my_name
->>> say_my_name("pedro", "rodriguez")
-My name is pedro rodriguez
->>> say_my_name("pedro", 1)
+The 3-say_my_name.py module
+======================
+
+Using say_my_name
+-------------------
+
+The module defines a function say_my_name that prints
+a person's name. It takes a first name and an
+optional last name as arguments.
+
+First import say_my_name from the 3-say_my_name.py module:
+
+>>> say_my_name = __import__('3-say_my_name').say_my_name
+
+>>> say_my_name("John", "Doe")
+My name is John Doe
+
+>>> say_my_name("John", None)
 Traceback (most recent call last):
-    ...
 TypeError: last_name must be a string
->>> say_my_name(1, "rodriguez")
+
+>>> say_my_name(123, "Doe")
 Traceback (most recent call last):
-    ...
 TypeError: first_name must be a string
+
+>>> say_my_name("John", 123)
+Traceback (most recent call last):
+TypeError: last_name must be a string
+
 >>> say_my_name()
 Traceback (most recent call last):
-    ...
 TypeError: say_my_name() missing 1 required positional argument: 'first_name'
->>> say_my_name("pedro", "paco", "diaz")
-Traceback (most recent call last):
-    ...
-TypeError: say_my_name() takes from 1 to 2 positional arguments but 3 were given
