@@ -7,7 +7,7 @@ from flask_jwt_extended import (
     jwt_required,
     get_jwt_identity,
 )
-from flask_jwt_extended.exceptions import NoAuthorizationError, InvalidHeaderError
+
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "your_secret_key"
